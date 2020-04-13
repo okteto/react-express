@@ -1,49 +1,31 @@
 import React, { Component } from 'react';
 
-import logo from './logo.svg';
-
 import './App.css';
 
 class App extends Component {
   state = {
-    response: '',
-    post: '',
-    responseToPost: '',
-  };
-  
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.message }))
-      .catch(err => console.log(err));
-  }
-  
-  callApi = async () => {
-    const response = await fetch('/api/hello');
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    
-    return body;
+    logo: 'logo512.png'
   };
   
   handleSubmit = async e => {
     e.preventDefault();
-    const response = await fetch('/api/echo', {
+    const response = await fetch('/api/logo', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ echo: this.state.post }),
+      body: JSON.stringify({ logo: this.state.post }),
     });
-    const body = await response.text();
+    const body = await response.json()
     
-    this.setState({ responseToPost: body });
+    this.setState({ logo: body.logo });
   };
   
 render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={this.state.logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
@@ -59,7 +41,7 @@ render() {
         <p>{this.state.response}</p>
         <form onSubmit={this.handleSubmit}>
           <p>
-            <strong>Post to Server:</strong>
+            <strong>Pick your logo:</strong>
           </p>
           <input
             type="text"
@@ -68,7 +50,6 @@ render() {
           />
           <button type="submit">Submit</button>
         </form>
-        <p>{this.state.responseToPost}</p>
       </div>
     );
   }

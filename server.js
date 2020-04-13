@@ -8,13 +8,25 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/hello', (req, res) => {
-  res.json({message: 'Hello World!'});
-});
-
-app.post('/api/echo', (req, res) => {
+app.post('/api/logo', (req, res) => {
   console.log(req.body);
-  res.json({message: `You said: ${req.body.echo}`});
+  var logo = '';
+  switch(req.body.logo){
+    case "react":
+      logo = 'logo512.png';
+      break;
+    case "okteto":
+      logo = 'https://okteto.com/icons/icon-384x384.png';
+      break;
+    case 'taco':
+      logo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/001_Tacos_de_carnitas%2C_carne_asada_y_al_pastor.jpg/2560px-001_Tacos_de_carnitas%2C_carne_asada_y_al_pastor.jpg';
+      break;
+    default:
+      logo = 'https://upload.wikimedia.org/wikipedia/commons/3/32/Baby_Llama_%285615095787%29.jpg'
+      break;
+  }
+
+  res.json({logo: logo});
 });
 
 
