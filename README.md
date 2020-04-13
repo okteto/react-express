@@ -1,68 +1,89 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Build a ReactJS + Express app in Okteto Cloud
 
-## Available Scripts
+## Get the Initial App 
 
-In the project directory, you can run:
+The app has the following components:
+- `client`: The basic skaffolding of a react app
+- `server.js`: An express server with a `hello world` API
+- `package.json`: A root `package.json` with the name of the app and scripts to install the dependencies and start the dev servers.
 
-### `yarn start`
+## Start your Development Environment
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Install the okteto CLI.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Create a `okteto.yml` file with the following contents
+```
+```
 
-### `yarn test`
+Also, create a `.stignore` file with the following contents:
+```
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Login to Okteto Cloud
 
-### `yarn build`
+```
+okteto login
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Start your development environment:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+okteto up
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Develop the App
 
-### `yarn eject`
+Install the dependencies on your development environment:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+okteto> yarn install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Start your dev servers:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+okteto> yarn dev
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Go to Okteto Cloud, and click on the application's URL.
 
-## Learn More
+Make the following changes to the app:
+- Change the API to return logos for Okteto and React
+- Change the frontend to call the API to change logos
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Reload the browser to see how everything changes automatically.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Deployment to Okteto Cloud
 
-### Code Splitting
+Open `server.js` and add code to serve the React app's static assets:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```
+...
+...
+```
 
-### Analyzing the Bundle Size
+Add a `build` script to `package.json` that builds the React App:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```
+"scripts": {
+  ...,
+  "build": "yarn --cwd client install && yarn --cwd client build"
+}
+```
 
-### Making a Progressive Web App
+Add a Dockerfile 
+```
+...
+...
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Deploy to Okteto Cloud:
 
-### Advanced Configuration
+```
+okteto push
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Access your application and share it with the world!
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

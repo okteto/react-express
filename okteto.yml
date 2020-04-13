@@ -3,3 +3,5 @@ image: okteto/node:10
 command:
 - bash
 workdir: /usr/src/app
+environment:
+- NODE_ENV=development
