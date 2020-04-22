@@ -1,15 +1,10 @@
 {
   "name": "react-express",
-  "version": "1.0.0",
   "main": "server.js",
-  "author": "Ramiro Berrelleza <ramiro@okteto.com>",
-  "license": "Apache-2.0",
   "scripts": {
-    "postinstall": "yarn --cwd client install",
-    "client": "yarn --cwd client start",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "build": "yarn --cwd client build"
+    "client": "yarn --cwd client start",
+    "dev": "concurrently --kill-others-on-fail \"PORT=3000 yarn server\" \"DANGEROUSLY_DISABLE_HOST_CHECK=true yarn client\""
   },
   "devDependencies": {
     "concurrently": "^5.1.0"

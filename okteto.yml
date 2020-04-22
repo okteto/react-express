@@ -1,7 +1,5 @@
-name: react-express
+name: my-app
 image: okteto/node:10
 command:
 - bash
 workdir: /usr/src/app
-environment:
-- NODE_ENV=development
